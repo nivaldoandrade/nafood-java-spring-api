@@ -18,7 +18,7 @@ public class ListCookeryMain {
 		
 		CookeryRepository cookeryRepository = applicationContext.getBean(CookeryRepository.class);
 		
-		List<Cookery> cookeries = cookeryRepository.index();
+		List<Cookery> cookeries = cookeryRepository.findAll();
 		
 		for(Cookery cookery : cookeries) {
 			System.out.println(cookery.getName());

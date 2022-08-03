@@ -18,7 +18,7 @@ public class IndexRestaurantMain {
 		
 		RestaurantRepository restaurantRepository = applicationContext.getBean(RestaurantRepository.class);
 		
-		List<Restaurant> restaurants = restaurantRepository.index();
+		List<Restaurant> restaurants = restaurantRepository.findAll();
 		
 		for(Restaurant restaurant: restaurants) {
 			System.out.printf("Restaurnt: %s - tax: %1.2f - cookery: %s \n", 

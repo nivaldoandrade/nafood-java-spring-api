@@ -13,6 +13,6 @@ public class CreateCookeryService {
 	private CookeryRepository cookeryRepository;
 	
 	public Cookery execute(Cookery cookery) {
-		return cookeryRepository.store(cookery);
+		return cookeryRepository.save(cookery);
 	}
 }

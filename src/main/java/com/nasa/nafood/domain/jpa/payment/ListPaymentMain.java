@@ -19,7 +19,7 @@ public class ListPaymentMain {
 		PaymentRepository paymentRepository = applicationContext.getBean(PaymentRepository.class);
 		
 		
-		List<Payment> payments = paymentRepository.index();
+		List<Payment> payments = paymentRepository.findAll();
 		
 		for(Payment payment: payments) {
 			System.out.println(payment.getDescription());

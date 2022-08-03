@@ -14,9 +14,7 @@ public class DeletePaymentMain {
 				.run(args);
 		
 		PaymentRepository paymentRepository = applicationContext.getBean(PaymentRepository.class);
-		
-		Long paymentId = 1L;
-		
-		paymentRepository.delete(paymentId);
+
+		paymentRepository.deleteById(1L);
 	}
 }

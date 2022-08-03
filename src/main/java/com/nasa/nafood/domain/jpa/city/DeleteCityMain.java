@@ -15,6 +15,6 @@ public class DeleteCityMain {
 		
 		CityRepository cityRepository = applicationContext.getBean(CityRepository.class);
 		
-		cityRepository.delete(2L);
+		cityRepository.deleteById(2L);
 	}
 }

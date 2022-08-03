@@ -16,7 +16,7 @@ public class ShowCityMain {
 		
 		CityRepository cityRepository = applicationContext.getBean(CityRepository.class);
 		
-		City city = cityRepository.show(1L);
+		City city = cityRepository.findById(1L).orElseThrow();
 
 		System.out.printf("Id: %d - City: %s - State: %s%n", city.getId(), city.getName(), city.getState().getName());
 	

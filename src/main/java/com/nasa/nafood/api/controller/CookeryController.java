@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,7 @@ import com.nasa.nafood.domain.exception.EntityNotFoundException;
 import com.nasa.nafood.domain.model.Cookery;
 import com.nasa.nafood.domain.service.cookery.CreateCookeryService;
 import com.nasa.nafood.domain.service.cookery.DeleteCookeryService;
+import com.nasa.nafood.domain.service.cookery.FindByNameCookeryService;
 import com.nasa.nafood.domain.service.cookery.ListCookeryService;
 import com.nasa.nafood.domain.service.cookery.ShowCookeryService;
 import com.nasa.nafood.domain.service.cookery.UpdateCookeryService;
@@ -31,6 +33,7 @@ public class CookeryController {
 
 	private ListCookeryService listCookeryService;
 	private ShowCookeryService showCookeryService;
+	private FindByNameCookeryService findByNameCookeryService;
 	private UpdateCookeryService updateCookeryService;
 	private CreateCookeryService createCookeryService;
 	private DeleteCookeryService deleteCookeryService;
@@ -38,6 +41,7 @@ public class CookeryController {
 	public CookeryController(
 			ListCookeryService listCookeryService,
 			ShowCookeryService showCookeryService,
+			FindByNameCookeryService findByNameCookeryService,
 			UpdateCookeryService updateCookeryService,
 			CreateCookeryService createCookeryService,
 			DeleteCookeryService deleteCookeryService
@@ -46,6 +50,7 @@ public class CookeryController {
 		this.listCookeryService = listCookeryService;
 		this.updateCookeryService = updateCookeryService;
 		this.showCookeryService = showCookeryService;
+		this.findByNameCookeryService = findByNameCookeryService;
 		this.createCookeryService = createCookeryService;
 		this.deleteCookeryService = deleteCookeryService;
 	}
@@ -67,6 +72,17 @@ public class CookeryController {
 			
 			return ResponseEntity.ok(cookery);
 
+		} catch (EntityNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	@GetMapping("/name")
+	public ResponseEntity<List<Cookery>> findByName(@RequestParam("name") String name) {
+		try {
+			List<Cookery> cookeries = findByNameCookeryService.execute(name);
+			
+			return ResponseEntity.ok(cookeries);
 		} catch (EntityNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}

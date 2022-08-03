@@ -15,6 +15,6 @@ public class ListCityService {
 	private CityRepository cityRepository;
 	
 	public List<City> execute() {
-		return cityRepository.index();
+		return cityRepository.findAll();
 	}
 }

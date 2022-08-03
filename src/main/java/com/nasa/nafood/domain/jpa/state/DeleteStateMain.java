@@ -5,6 +5,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.nasa.nafood.NafoodApiApplication;
+import com.nasa.nafood.domain.model.State;
 import com.nasa.nafood.domain.repository.StateRepository;
 
 public class DeleteStateMain {
@@ -16,7 +17,9 @@ public class DeleteStateMain {
 		
 		StateRepository stateRepository = applicationContext.getBean(StateRepository.class);
 		
+		State state = new State();
+		state.setName("Bahia");
 
-		stateRepository.delete(1L);
+		stateRepository.delete(state);
 	}
 }

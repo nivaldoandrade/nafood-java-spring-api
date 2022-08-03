@@ -20,7 +20,7 @@ public class CreateStateMain {
 		State state = new State();
 		state.setName("Piauí");
 		
-		state = stateRepository.store(state);
+		state = stateRepository.save(state);
 		
 		System.out.printf("Id: %d - State: %s%n", state.getId(), state.getName());
 	}

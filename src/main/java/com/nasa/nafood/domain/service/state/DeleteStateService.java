@@ -17,7 +17,7 @@ public class DeleteStateService {
 	
 	public void execute(long stateId) {
 		try {
-			stateRepository.delete(stateId);
+			stateRepository.deleteById(stateId);
 		} catch (Exception e) {
 			if(e instanceof EmptyResultDataAccessException) {
 				throw new EntityNotFoundException(String.format("The state with %d is not found", stateId));

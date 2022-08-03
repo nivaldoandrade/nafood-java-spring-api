@@ -1,5 +1,7 @@
 package com.nasa.nafood.domain.jpa.restaurant;
 
+import java.util.Optional;
+
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -16,10 +18,17 @@ public class UpdateRestaurantMain {
 		
 		RestaurantRepository restaurantRepository = applicationContext.getBean(RestaurantRepository.class);
 		
-		Restaurant restaurant = restaurantRepository.show(1L);
+		Optional<Restaurant> restaurantOptional = restaurantRepository.findById(1L);
+		
+		if(restaurantOptional.isEmpty()) {
+			System.out.println("The restaurant is not found.");
+			return;
+		}
+		
+		Restaurant restaurant = restaurantOptional.get();
 		restaurant.setName("Bob's");
 		
-		restaurant = restaurantRepository.update(restaurant);
+		restaurant = restaurantRepository.save(restaurant);
 		
 		System.out.printf("Restaurant: %s - tax: %1.2f\n", restaurant.getName(), restaurant.getTax());
 	}

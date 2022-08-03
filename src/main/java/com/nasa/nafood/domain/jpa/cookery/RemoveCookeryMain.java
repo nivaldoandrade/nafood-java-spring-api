@@ -5,6 +5,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.nasa.nafood.NafoodApiApplication;
+import com.nasa.nafood.domain.model.Cookery;
 import com.nasa.nafood.domain.repository.CookeryRepository;
 
 public class RemoveCookeryMain {
@@ -16,6 +17,12 @@ public class RemoveCookeryMain {
 		
 		CookeryRepository cookeryRepository = applicationContext.getBean(CookeryRepository.class);
 		
-		cookeryRepository.delete(1L);
+		Cookery cookery = new Cookery();
+		
+		cookery.setName("Japonesa");
+		
+		cookery = cookeryRepository.save(cookery);
+		
+		cookeryRepository.deleteById(cookery.getId());
 	}
 }

@@ -13,7 +13,7 @@ public class CreateStateService {
 	private StateRepository stateRepository;
 	
 	public State execute(State state) {
-		return stateRepository.store(state);
+		return stateRepository.save(state);
 	}
 	
 }

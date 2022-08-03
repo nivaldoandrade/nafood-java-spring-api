@@ -1,5 +1,7 @@
 package com.nasa.nafood.domain.service.city;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +16,13 @@ public class DeleteCityService {
 	private CityRepository cityRepository;
 	
 	public void execute(Long cityId) {
-		City city = cityRepository.show(cityId);
+		Optional<City> city = cityRepository.findById(cityId);
 		
-		if(city == null) {
+		if(city.isEmpty()) {
 			throw new EntityNotFoundException(String.format("The city with %d is not found", cityId));
 		}
 		
-		cityRepository.delete(cityId);
+		cityRepository.deleteById(cityId);
 	}
 	
 }

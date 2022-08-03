@@ -1,5 +1,7 @@
 package com.nasa.nafood.domain.service.restaurant;
 
+import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,11 +23,13 @@ public class UpdateRestaurantService {
 	private CookeryRepository cookeryRepository;
 	
 	public Restaurant execute(Long id, Restaurant restaurant) {
-		Restaurant restaurantUpdate = restaurantRepository.show(id);
+		Optional<Restaurant> restaurantOptional = restaurantRepository.findById(id);
 		
-		if(restaurantUpdate == null) {
+		if(restaurantOptional.isEmpty()) {
 			throw new EntityNotFoundException(String.format("The restaurant with %d is not found", id));
 		};
+		
+		Restaurant restaurantUpdate = restaurantOptional.get();
 		
 		BeanUtils.copyProperties(restaurant, restaurantUpdate, "id");
 		
@@ -36,16 +40,16 @@ public class UpdateRestaurantService {
 		};
 		
 		Long cookeryId = restaurant.getCookery().getId();
-		cookery = cookeryRepository.show(cookeryId);
+		Optional<Cookery> cookeryOptional = cookeryRepository.findById(cookeryId);
 		
 		
-		if(cookery == null) {
+		if(cookeryOptional.isEmpty()) {
 			throw new EntityBadRequestException(String.format("The cookery with %d is not found", cookeryId));
 		};
 		
-		restaurantUpdate.setCookery(cookery);
+		restaurantUpdate.setCookery(cookeryOptional.get());
 	
 		
-		return restaurantRepository.update(restaurantUpdate);
+		return restaurantRepository.save(restaurantUpdate);
 	}
 }

@@ -27,8 +27,8 @@ public class CreateRestaurantMain {
 		restaurant2.setTax(new BigDecimal(89.54));
 		
 		
-		Restaurant restaurnt1 = restaurantRepository.store(restaurant1);
-		Restaurant restaurnt2 = restaurantRepository.store(restaurant2);
+		Restaurant restaurnt1 = restaurantRepository.save(restaurant1);
+		Restaurant restaurnt2 = restaurantRepository.save(restaurant2);
 		
 		System.out.printf("Restaurant: %s - tax: %1.2f\n", restaurnt1.getName(), restaurnt1.getTax());
 		System.out.printf("Restaurant: %s - tax: %1.2f\n", restaurnt2.getName(), restaurnt2.getTax());

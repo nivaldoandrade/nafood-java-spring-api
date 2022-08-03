@@ -25,8 +25,8 @@ public class CreateCookeryMain {
 		
 		cookery2.setName("Russa");
 		
-		cookery1 = cookeryRepository.store(cookery1);
-		cookery2 = cookeryRepository.store(cookery2);
+		cookery1 = cookeryRepository.save(cookery1);
+		cookery2 = cookeryRepository.save(cookery2);
 		
 		System.out.printf("%d - %s\n", cookery1.getId(), cookery1.getName());
 		System.out.printf("%d - %s\n", cookery2.getId(), cookery2.getName());

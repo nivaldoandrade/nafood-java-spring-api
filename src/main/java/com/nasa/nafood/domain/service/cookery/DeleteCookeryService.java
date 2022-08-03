@@ -18,7 +18,7 @@ public class DeleteCookeryService {
 	public void execute(Long id) {
 		
 		try {
-			cookeryRepository.delete(id);
+			cookeryRepository.deleteById(id);
 			
 		} catch (Exception e) {
 			

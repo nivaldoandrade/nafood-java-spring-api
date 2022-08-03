@@ -23,9 +23,9 @@ public class CreatePaymentMain {
 		Payment payment2 = new Payment();
 		payment2.setDescription("Pix");
 		
-		payment1 = paymentRepository.store(payment1);
+		payment1 = paymentRepository.save(payment1);
 		
-		payment2 = paymentRepository.store(payment2);
+		payment2 = paymentRepository.save(payment2);
 		
 		System.out.printf("Payment: %s%n", payment1.getDescription());
 		System.out.printf("Payment: %s%n", payment2.getDescription());

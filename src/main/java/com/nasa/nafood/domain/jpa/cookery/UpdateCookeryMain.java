@@ -17,10 +17,10 @@ public class UpdateCookeryMain {
 		
 		CookeryRepository cookeryRepository = applicationContext.getBean(CookeryRepository.class);
 		
-		Cookery cookery = cookeryRepository.show(1L);
+		Cookery cookery = cookeryRepository.findById(1L).orElseThrow();
 		cookery.setName("Tailandesa");
 		
-		cookery = cookeryRepository.update(cookery);
+		cookery = cookeryRepository.save(cookery);
 		
 		System.out.println(cookery.getName());
 		

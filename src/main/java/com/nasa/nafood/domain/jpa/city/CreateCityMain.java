@@ -1,5 +1,7 @@
 package com.nasa.nafood.domain.jpa.city;
 
+import java.util.Optional;
+
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -19,13 +21,20 @@ public class CreateCityMain {
 		CityRepository cityRepository = applicationContext.getBean(CityRepository.class);
 		StateRepository stateRepository = applicationContext.getBean(StateRepository.class);
 		
-		State state = stateRepository.show(3L);
+		Optional<State> stateOptional = stateRepository.findById(3L);
+		
+		if(stateOptional.isEmpty()) {
+			System.out.println("The state is not found");
+			return;
+		}
+		
+		State state = stateOptional.get();
 		
 		City city = new City();
 		city.setName("Floriano");
 		city.setState(state);
 		
-		city = cityRepository.store(city);
+		city = cityRepository.save(city);
 
 		System.out.printf("Id: %d - City: %s - State: %s%n", city.getId(), city.getName(), city.getState().getName());
 	

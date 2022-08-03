@@ -16,6 +16,6 @@ public class ListCookeryService {
 	
 	
 	public List<Cookery> execute() {
-		return cookeryRepository.index();
+		return cookeryRepository.findAll();
 	}
 }

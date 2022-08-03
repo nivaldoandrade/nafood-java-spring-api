@@ -1,5 +1,7 @@
 package com.nasa.nafood.domain.service.city;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +23,16 @@ public class CreateCityService {
 	public City execute(City city) {
 		Long stateId = city.getState().getId();
 		
-		State state = stateRepository.show(stateId);
-		
-		if(state == null) {
+		Optional<State> stateOptinal = stateRepository.findById(stateId);
+	
+		if(stateOptinal.isEmpty()) {
 			throw new EntityBadRequestException(String.format("The state with %d is not found", stateId));
 		}
 		
+		State state = stateOptinal.get();
+		
 		city.setState(state);
 		
-		return cityRepository.store(city);
+		return cityRepository.save(city);
 	}
 }

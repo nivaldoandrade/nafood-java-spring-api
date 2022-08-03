@@ -15,6 +15,6 @@ public class ListStateService {
 	private StateRepository stateRepository;
 	
 	public List<State> execute() {
-		return stateRepository.index();
+		return stateRepository.findAll();
 	}
 }

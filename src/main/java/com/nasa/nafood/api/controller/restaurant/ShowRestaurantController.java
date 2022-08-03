@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nasa.nafood.domain.exception.EntityNotFoundException;
 import com.nasa.nafood.domain.model.Restaurant;
 import com.nasa.nafood.domain.service.restaurant.ShowRestaurantService;
 
@@ -18,12 +19,12 @@ public class ShowRestaurantController {
 	
 	@GetMapping
 	public ResponseEntity<Restaurant> show(@PathVariable long restaurantId) {
-		Restaurant restaurant = showRestaurantService.execute(restaurantId);
-		
-		if(restaurant == null) {
+		try {
+			Restaurant restaurant = showRestaurantService.execute(restaurantId);
+			
+			return ResponseEntity.ok(restaurant);
+		} catch (EntityNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
-		
-		return ResponseEntity.ok(restaurant);
 	} 
 }

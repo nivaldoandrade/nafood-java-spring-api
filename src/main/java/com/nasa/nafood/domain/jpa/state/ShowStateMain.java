@@ -18,7 +18,7 @@ public class ShowStateMain {
 		StateRepository stateRepository = applicationContext.getBean(StateRepository.class);
 		
 	
-		State state = stateRepository.show(1L);
+		State state = stateRepository.findById(1L).orElseThrow(null);
 		
 		System.out.printf("Id: %d - State: %s%n", state.getId(), state.getName());
 

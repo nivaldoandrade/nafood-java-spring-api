@@ -2,6 +2,7 @@ package com.nasa.nafood.api.controller.restaurant;
 
 import java.lang.reflect.Field;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +29,13 @@ public class PacthRestaurantController {
 	
 	@PatchMapping
 	public ResponseEntity<?> update(@PathVariable Long restaurantId, @RequestBody Map<String, Object> fields) {
-		Restaurant restaurant = restaurantRepository.show(restaurantId);
+		Optional<Restaurant> restaurantOptional = restaurantRepository.findById(restaurantId);
 		
-		if(restaurant == null) {
+		if(restaurantOptional.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
+		
+		Restaurant restaurant = restaurantOptional.get();
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		Restaurant restaurantFields = objectMapper.convertValue(fields, Restaurant.class);

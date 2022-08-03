@@ -1,6 +1,6 @@
 package com.nasa.nafood.domain.service.cookery;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,18 +10,19 @@ import com.nasa.nafood.domain.model.Cookery;
 import com.nasa.nafood.domain.repository.CookeryRepository;
 
 @Service
-public class ShowCookeryService {
+public class FindByNameCookeryService {
 
 	@Autowired
 	private CookeryRepository cookeryRepository;
 	
-	public Cookery execute(Long id) {
-		Optional<Cookery> cookery = cookeryRepository.findById(id);
+	public List<Cookery> execute(String name) {
+		List<Cookery> cookeries =  cookeryRepository.findByName(name);
 		
-		if(cookery.isEmpty()) {
-			throw new EntityNotFoundException(String.format("The cookery with %d is not found", id));
+		
+		if(cookeries.isEmpty()) {
+			throw new EntityNotFoundException(String.format("The cookery with %s is not found", name));
 		}
 		
-		return cookery.get();
+		return cookeries;
 	}
-}
+} 

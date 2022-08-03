@@ -1,5 +1,7 @@
 package com.nasa.nafood.domain.jpa.payment;
 
+import java.util.Optional;
+
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -17,10 +19,17 @@ public class UpdatePaymentMain {
 		PaymentRepository paymentRepository = applicationContext.getBean(PaymentRepository.class);
 		
 		
-		Payment payment = paymentRepository.show(1L);
+		Optional<Payment> paymentOptional = paymentRepository.findById(5L);
+		
+		if(paymentOptional.isEmpty()) {
+			System.out.println("Payment is not found");
+			return;
+		}
+		
+		Payment payment = paymentOptional.get();
 		payment.setDescription("Pix");
 
-		payment = paymentRepository.store(payment);
+		payment = paymentRepository.save(payment);
 		
 		System.out.printf("id: %d - payment: %s%n", payment.getId(), payment.getDescription());
 	}

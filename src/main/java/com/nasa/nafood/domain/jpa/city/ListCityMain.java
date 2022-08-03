@@ -18,7 +18,7 @@ public class ListCityMain {
 		
 		CityRepository cityRepository = applicationContext.getBean(CityRepository.class);
 		
-		List<City> cities = cityRepository.index();
+		List<City> cities = cityRepository.findAll();
 		
 		for(City city: cities) {
 			System.out.printf("Id: %d - City: %s - State: %s%n", city.getId(), city.getName(), city.getState().getName());

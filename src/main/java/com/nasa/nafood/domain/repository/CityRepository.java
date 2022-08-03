@@ -1,14 +1,14 @@
 package com.nasa.nafood.domain.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.nasa.nafood.domain.model.City;
 
-public interface CityRepository {
+public interface CityRepository extends JpaRepository<City, Long> {
 
-	List<City> index();
-	City show(Long id);
-	City store(City city);
-	City update(City city);
-	void delete(Long id);
+//	List<City> index();
+//	City show(Long id);
+//	City store(City city);
+//	City update(City city);
+//	void delete(Long id);
 }

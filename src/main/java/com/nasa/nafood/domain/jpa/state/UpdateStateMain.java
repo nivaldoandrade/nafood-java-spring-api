@@ -1,5 +1,7 @@
 package com.nasa.nafood.domain.jpa.state;
 
+import java.util.Optional;
+
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -17,10 +19,17 @@ public class UpdateStateMain {
 		
 		StateRepository stateRepository = applicationContext.getBean(StateRepository.class);
 		
-		State state = stateRepository.show(2L);
+		Optional<State> stateOptional = stateRepository.findById(2L);
+		
+		if(stateOptional.isEmpty()) {
+			System.out.println("The state is not found.");
+			return;
+		}
+		
+		State state = stateOptional.get();
 		state.setName("Piauí");
 		
-		state = stateRepository.update(state);
+		state = stateRepository.save(state);
 		
 		System.out.printf("Id: %d - State: %s%n", state.getId(), state.getName());
 	}

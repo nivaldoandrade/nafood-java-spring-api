@@ -17,7 +17,7 @@ public class ShowPaymentMain {
 		PaymentRepository paymentRepository = applicationContext.getBean(PaymentRepository.class);
 		
 		
-		Payment payment = paymentRepository.show(3L);
+		Payment payment = paymentRepository.findById(1L).orElseThrow();
 		
 		System.out.println(payment.getDescription());
 	}

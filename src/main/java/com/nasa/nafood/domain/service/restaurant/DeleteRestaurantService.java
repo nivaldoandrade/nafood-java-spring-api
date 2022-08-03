@@ -1,5 +1,7 @@
 package com.nasa.nafood.domain.service.restaurant;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +16,13 @@ public class DeleteRestaurantService {
 	private RestaurantRepository restaurantRepository;
 	
 	public void execute(long id) {
-		Restaurant restaurant = restaurantRepository.show(id);
+		Optional<Restaurant> restaurantOptional = restaurantRepository.findById(id);
 		
-		if(restaurant == null) {
+		if(restaurantOptional.isEmpty()) {
 			throw new EntityNotFoundException(String.format("The restaurant with %d is not found", id));
 		};
+		
+		Restaurant restaurant = restaurantOptional.get();
 		
 		restaurantRepository.delete(restaurant);
 	} 

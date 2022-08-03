@@ -17,7 +17,7 @@ public class ShowCookeryMain {
 		CookeryRepository cookeryRepository = applicationContext.getBean(CookeryRepository.class);
 		
 		
-		Cookery cookery = cookeryRepository.show(2L);
+		Cookery cookery = cookeryRepository.findById(1L).orElseThrow();
 		
 		System.out.println(cookery.getName());
 	}
