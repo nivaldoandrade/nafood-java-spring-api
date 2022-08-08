@@ -8,5 +8,9 @@ import com.nasa.nafood.domain.model.Cookery;
 
 public interface CookeryRepository extends JpaRepository<Cookery, Long> {
 
-	List<Cookery> findByName(String name);
+	List<Cookery> findAllByNameContaining(String name);
+	
+	Cookery findByName(String name);
+	
+	boolean existsByName(String name);
 }

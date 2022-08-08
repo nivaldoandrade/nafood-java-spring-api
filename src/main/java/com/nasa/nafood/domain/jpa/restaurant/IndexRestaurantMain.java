@@ -23,7 +23,7 @@ public class IndexRestaurantMain {
 		for(Restaurant restaurant: restaurants) {
 			System.out.printf("Restaurnt: %s - tax: %1.2f - cookery: %s \n", 
 					restaurant.getName(), 
-					restaurant.getTax(),
+					restaurant.getFee(),
 					restaurant.getCookery().getName()
 			);
 		}

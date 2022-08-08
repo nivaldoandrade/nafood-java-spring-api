@@ -20,18 +20,18 @@ public class CreateRestaurantMain {
 		
 		Restaurant restaurant1 = new Restaurant();
 		restaurant1.setName("Bob's");
-		restaurant1.setTax(new BigDecimal(50.0));
+		restaurant1.setFee(new BigDecimal(50.0));
 		
 		Restaurant restaurant2 = new Restaurant();
 		restaurant2.setName("Ziza");
-		restaurant2.setTax(new BigDecimal(89.54));
+		restaurant2.setFee(new BigDecimal(89.54));
 		
 		
 		Restaurant restaurnt1 = restaurantRepository.save(restaurant1);
 		Restaurant restaurnt2 = restaurantRepository.save(restaurant2);
 		
-		System.out.printf("Restaurant: %s - tax: %1.2f\n", restaurnt1.getName(), restaurnt1.getTax());
-		System.out.printf("Restaurant: %s - tax: %1.2f\n", restaurnt2.getName(), restaurnt2.getTax());
+		System.out.printf("Restaurant: %s - tax: %1.2f\n", restaurnt1.getName(), restaurnt1.getFee());
+		System.out.printf("Restaurant: %s - tax: %1.2f\n", restaurnt2.getName(), restaurnt2.getFee());
 		
 	}
 }

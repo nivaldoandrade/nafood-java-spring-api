@@ -16,7 +16,7 @@ public class FindByNameCookeryService {
 	private CookeryRepository cookeryRepository;
 	
 	public List<Cookery> execute(String name) {
-		List<Cookery> cookeries =  cookeryRepository.findByName(name);
+		List<Cookery> cookeries =  cookeryRepository.findAllByNameContaining(name);
 		
 		
 		if(cookeries.isEmpty()) {

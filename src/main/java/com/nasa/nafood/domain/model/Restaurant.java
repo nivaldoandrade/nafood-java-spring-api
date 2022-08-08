@@ -25,7 +25,7 @@ public class Restaurant {
 	
 	private String name;
 	
-	private BigDecimal tax;
+	private BigDecimal fee;
 	
 	@ManyToOne
 	private Cookery cookery;

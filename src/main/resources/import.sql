@@ -1,8 +1,9 @@
 INSERT INTO cookery(name) VALUES('Brasileira');
 INSERT INTO cookery(name) VALUES('Italiana');
 
-INSERT INTO restaurant(name, tax, cookery_id) VALUES('Outback', '111.90', 1);
-INSERT INTO restaurant(name, tax, cookery_id) VALUES('Madero', '90.5', 2);
+INSERT INTO restaurant(name, fee, cookery_id) VALUES('Outback', '111.90', 1);
+INSERT INTO restaurant(name, fee, cookery_id) VALUES('Madero', '90.5', 2);
+INSERT INTO restaurant(name, fee, cookery_id) VALUES('Bar do Peixe', '35', 1);
 
 INSERT INTO payment(description) VALUES('Cash');
 INSERT INTO payment(description) VALUES('Debit cards');

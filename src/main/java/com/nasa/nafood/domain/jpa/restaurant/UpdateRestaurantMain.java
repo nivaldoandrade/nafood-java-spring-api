@@ -30,6 +30,6 @@ public class UpdateRestaurantMain {
 		
 		restaurant = restaurantRepository.save(restaurant);
 		
-		System.out.printf("Restaurant: %s - tax: %1.2f\n", restaurant.getName(), restaurant.getTax());
+		System.out.printf("Restaurant: %s - tax: %1.2f\n", restaurant.getName(), restaurant.getFee());
 	}
 }
