@@ -1,5 +1,8 @@
 package com.nasa.nafood.infra.repository;
 
+import static com.nasa.nafood.infra.repository.spec.restaurant.RestaurantSpecs.withFreeFee;
+import static com.nasa.nafood.infra.repository.spec.restaurant.RestaurantSpecs.withSimilarName;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +15,12 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.nasa.nafood.domain.model.Restaurant;
+import com.nasa.nafood.domain.repository.RestaurantRepository;
 
 
 @Repository
@@ -23,6 +28,9 @@ public class RestaurantRepositoryImpl implements CustomRestaurantRepository {
 
 	@Autowired
 	private EntityManager entityManager;
+	
+	@Autowired @Lazy
+	private RestaurantRepository restaurantRepository;
 	
 	@Override
 	public List<Restaurant> findByNameBetweenFee(String name, BigDecimal initialFee, BigDecimal finalFee) {
@@ -53,6 +61,12 @@ public class RestaurantRepositoryImpl implements CustomRestaurantRepository {
 		TypedQuery<Restaurant> query = entityManager.createQuery(criteria);
 		
 		return query.getResultList();
+	}
+
+	@Override
+	public List<Restaurant> findByNameWithFreeFee(String name) {
+		
+		return restaurantRepository.findAll(withSimilarName(name).and(withFreeFee()));
 	}
 	
 //	@Override

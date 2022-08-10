@@ -39,6 +39,11 @@ public class TestController {
 	public boolean existsByName(String name) {
 		return cookeryRepository.existsByName(name);
 	}
+	
+	@GetMapping("/cookery/first")
+	public Optional<Cookery> findFirstCookery() {
+		return cookeryRepository.findFirst();
+	}
 	 
 	@GetMapping("/restaurant/per-fee") 
 	public List<Restaurant> findByFeeBetween(BigDecimal initialFee, BigDecimal finalFee) {
@@ -69,4 +74,15 @@ public class TestController {
 	public List<Restaurant> findByNameBetweenFee(String name, BigDecimal initialFee, BigDecimal finalFee) {
 		return restaurantRepository.findByNameBetweenFee(name, initialFee, finalFee);
 	}
+	
+	@GetMapping("/restaurant/per-name-free-fee")
+	public List<Restaurant> findByNameWithFreeFee(String name) {
+		return restaurantRepository.findByNameWithFreeFee(name);
+	}
+	
+	@GetMapping("/restaurant/first")
+	public Optional<Restaurant> findFirstRestaurant(){
+		return restaurantRepository.findFirst();
+	}
+	
 }

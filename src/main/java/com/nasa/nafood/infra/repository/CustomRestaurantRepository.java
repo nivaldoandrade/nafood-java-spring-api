@@ -8,5 +8,6 @@ import com.nasa.nafood.domain.model.Restaurant;
 public interface CustomRestaurantRepository {
 
 	List<Restaurant> findByNameBetweenFee(String name, BigDecimal initialFee, BigDecimal finalFee);
-
+	
+	List<Restaurant> findByNameWithFreeFee(String name);
 }
