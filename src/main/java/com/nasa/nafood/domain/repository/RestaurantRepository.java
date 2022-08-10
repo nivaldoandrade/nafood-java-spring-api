@@ -4,13 +4,18 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.nasa.nafood.domain.model.Restaurant;
 import com.nasa.nafood.infra.repository.CustomRestaurantRepository;
 
-public interface RestaurantRepository extends JpaRepository<Restaurant, Long>, CustomRestaurantRepository {
+@Repository
+public interface RestaurantRepository extends 
+	CustomRepository<Restaurant, Long>, 
+	CustomRestaurantRepository,
+	JpaSpecificationExecutor<Restaurant>{
 	
 	List<Restaurant> findByFeeBetween(BigDecimal initialFee, BigDecimal finalFee);
 	

@@ -2,11 +2,12 @@ package com.nasa.nafood.domain.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.nasa.nafood.domain.model.Cookery;
 
-public interface CookeryRepository extends JpaRepository<Cookery, Long> {
+@Repository
+public interface CookeryRepository extends CustomRepository<Cookery, Long> {
 
 	List<Cookery> findAllByNameContaining(String name);
 	
