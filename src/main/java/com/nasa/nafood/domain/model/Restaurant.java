@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +37,7 @@ public class Restaurant {
 	@ManyToOne
 	private Cookery cookery;
 	
-	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 			name = "restaurant_payment",

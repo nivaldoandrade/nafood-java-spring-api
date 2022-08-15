@@ -31,7 +31,7 @@ public class UpdateRestaurantService {
 		
 		Restaurant restaurantUpdate = restaurantOptional.get();
 		
-		BeanUtils.copyProperties(restaurant, restaurantUpdate, "id");
+		BeanUtils.copyProperties(restaurant, restaurantUpdate, "id", "payments");
 		
 		Cookery cookery = restaurantUpdate.getCookery();
 		
