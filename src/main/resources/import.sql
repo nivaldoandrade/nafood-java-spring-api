@@ -22,3 +22,5 @@ INSERT INTO state(name) VALUES('Piauí');
 INSERT INTO city(name, state_id) VALUES('São Caetano do Sul', 1);
 INSERT INTO city(name, state_id) VALUES('Niterói', 2);
 
+INSERT INTO restaurant_payment(restaurant_id, payment_id) VALUES(1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (4, 3), (5, 1), (5, 2), (5, 3)
+
