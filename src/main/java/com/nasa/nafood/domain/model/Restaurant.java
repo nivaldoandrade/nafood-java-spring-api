@@ -48,6 +48,6 @@ public class Restaurant {
 	private List<Payment> payments = new ArrayList<>();
 	
 	@Embedded
-	private Address addres;
+	private Address address;
 }
 
