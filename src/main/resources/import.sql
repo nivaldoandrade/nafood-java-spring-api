@@ -9,11 +9,11 @@ INSERT INTO state(name) VALUES('Piauí');
 INSERT INTO city(name, state_id) VALUES('São Caetano do Sul', 1);
 INSERT INTO city(name, state_id) VALUES('Niterói', 2);
 
-INSERT INTO restaurant(name, fee, cookery_id, address_address, address_number, address_district, city_id) VALUES('Outback', '111.90', 1, 'Alameda Terracota', '545 - 1079', 'Cerâmica', 1);
-INSERT INTO restaurant(name, fee, cookery_id) VALUES('Madero', '90.5', 2);
-INSERT INTO restaurant(name, fee, cookery_id) VALUES('Bar do Peixe', '35', 3);
-INSERT INTO restaurant(name, fee, cookery_id) VALUES('Andrades Restaurant', 0,  2);
-INSERT INTO restaurant(name, fee, cookery_id) VALUES('Valderi', 0, 1);
+INSERT INTO restaurant(name, fee, cookery_id, created_at, updated_at, address_address, address_number, address_district, city_id) VALUES('Outback', '111.90', 1, utc_timestamp, utc_timestamp, 'Alameda Terracota', '545 - 1079', 'Cerâmica', 1);
+INSERT INTO restaurant(name, fee, cookery_id, created_at, updated_at) VALUES('Madero', '90.5', 2, utc_timestamp, utc_timestamp);
+INSERT INTO restaurant(name, fee, cookery_id, created_at, updated_at) VALUES('Bar do Peixe', '35', 3, utc_timestamp, utc_timestamp);
+INSERT INTO restaurant(name, fee, cookery_id, created_at, updated_at) VALUES('Andrades Restaurant', 0,  2, utc_timestamp, utc_timestamp);
+INSERT INTO restaurant(name, fee, cookery_id, created_at, updated_at) VALUES('Valderi', 0, 1, utc_timestamp, utc_timestamp);
 
 INSERT INTO payment(description) VALUES('Cash');
 INSERT INTO payment(description) VALUES('Debit cards');
