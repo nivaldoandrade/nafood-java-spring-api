@@ -21,11 +21,20 @@ INSERT INTO payment(description) VALUES('Cash');
 INSERT INTO payment(description) VALUES('Debit cards');
 INSERT INTO payment(description) VALUES('Credit cards');
 
+INSERT INTO user(name, email, password, created_at) VALUES('Nivaldo Andrade', 'nivaldo.andrade@mail.com', '123', utc_timestamp);
+INSERT INTO user(name, email, password, created_at) VALUES('Jonh Doe', 'john.doe@mail.com', '321', utc_timestamp);
+
 INSERT INTO group_(name) VALUES('Administrators');
 INSERT INTO group_(name) VALUES('Users');
 
 INSERT INTO permission(description) VALUES('Admin');
 INSERT INTO permission(description) VALUES('User');
+
+INSERT INTO user_group(user_id, group_id) VALUES(1, 1);
+INSERT INTO user_group(user_id, group_id) VALUES(2 ,2);
+
+INSERT INTO group_permission(group_id, permission_id) VALUES(1, 1);
+INSERT INTO group_permission(group_id, permission_id) VALUES(2, 2);
 
 INSERT INTO restaurant_payment(restaurant_id, payment_id) VALUES(1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (4, 3), (5, 1), (5, 2), (5, 3)
 
