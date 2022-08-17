@@ -15,6 +15,8 @@ INSERT INTO restaurant(name, fee, cookery_id, created_at, updated_at) VALUES('Ba
 INSERT INTO restaurant(name, fee, cookery_id, created_at, updated_at) VALUES('Andrades Restaurant', 0,  2, utc_timestamp, utc_timestamp);
 INSERT INTO restaurant(name, fee, cookery_id, created_at, updated_at) VALUES('Valderi', 0, 1, utc_timestamp, utc_timestamp);
 
+INSERT INTO product(name, description, price, active, restaurant_id) VALUES('Parmegiana', 'Prato é deliciosa por si só, pois trata-se de filé empanado, recheado com presunto e mussarela', '119.00', true, 4);
+
 INSERT INTO payment(description) VALUES('Cash');
 INSERT INTO payment(description) VALUES('Debit cards');
 INSERT INTO payment(description) VALUES('Credit cards');
