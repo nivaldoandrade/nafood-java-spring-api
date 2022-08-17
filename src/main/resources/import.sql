@@ -21,6 +21,9 @@ INSERT INTO payment(description) VALUES('Cash');
 INSERT INTO payment(description) VALUES('Debit cards');
 INSERT INTO payment(description) VALUES('Credit cards');
 
+INSERT INTO group_(name) VALUES('Administrators');
+INSERT INTO group_(name) VALUES('Users');
+
 INSERT INTO permission(description) VALUES('Admin');
 INSERT INTO permission(description) VALUES('User');
 
