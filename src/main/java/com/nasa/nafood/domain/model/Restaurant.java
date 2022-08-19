@@ -41,13 +41,13 @@ public class Restaurant {
 	
 	private BigDecimal fee;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "restaurant")
 	private List<Product> products = new ArrayList<>();
 	
 	@ManyToOne
 	private Cookery cookery;
 	
-	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 			name = "restaurant_payment",
