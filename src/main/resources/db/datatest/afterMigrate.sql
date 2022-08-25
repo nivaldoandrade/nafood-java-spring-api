@@ -25,8 +25,12 @@ INSERT INTO state(name) VALUES('Piauí');
 INSERT INTO city(name, state_id) VALUES('São Caetano do Sul', 1);
 INSERT INTO city(name, state_id) VALUES('Niterói', 2);
 
-INSERT INTO order_(sub_total, fee, total_amount, status, created_at)
-VALUES(100, 35, 135, 'CRIADO', utc_timestamp);
+INSERT INTO payment(description) VALUES('Cash');
+INSERT INTO payment(description) VALUES('Debit cards');
+INSERT INTO payment(description) VALUES('Credit cards');
+
+INSERT INTO order_(sub_total, fee, total_amount, status, payment_id, created_at)
+VALUES(100, 35, 135, 'CRIADO', 1,  utc_timestamp);
 
 INSERT INTO order_item(order_id, quantity, unit_price, total_price, observation) 
 VALUES(1, 4, 12.5, 50, 'Test observation');
