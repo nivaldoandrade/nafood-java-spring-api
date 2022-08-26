@@ -41,6 +41,10 @@ public class Restaurant {
 	
 	private BigDecimal fee;
 	
+	private boolean active;
+	
+	private boolean opened;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "restaurant")
 	private List<Product> products = new ArrayList<>();
