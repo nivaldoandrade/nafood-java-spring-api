@@ -51,6 +51,9 @@ public class Order {
 	@ManyToOne
 	private Payment payment;
 	
+	@ManyToOne
+	private Restaurant restaurant;
+	
 	@CreationTimestamp
 	@Column(nullable = false, columnDefinition = "datetime")
 	private LocalDateTime createdAt;
