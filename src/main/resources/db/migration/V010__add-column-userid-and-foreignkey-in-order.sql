@@ -1,0 +1,4 @@
+ALTER TABLE order_ ADD COLUMN user_id BIGINT NOT NULL;
+
+ALTER TABLE order_ ADD CONSTRAINT fk_user_order
+FOREIGN KEY (user_id) REFERENCES user (id);
