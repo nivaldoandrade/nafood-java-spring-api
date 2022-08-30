@@ -13,11 +13,11 @@ INSERT INTO payment(description) VALUES('Cash');
 INSERT INTO payment(description) VALUES('Debit cards');
 INSERT INTO payment(description) VALUES('Credit cards');
 
-INSERT INTO restaurant(name, fee, active, opened, address_address, address_address2, address_number, address_district, city_id, created_at, updated_at) 
-VALUES('Andrades Rest', 50.7, 1, 1, 'Rua Alagoas', 'Bar', '664', 'Centro', 1, utc_timestamp, utc_timestamp);
+INSERT INTO restaurant(name, fee, active, opened, address_address, address_address2, address_number, address_district, city_id, cookery_id, created_at, updated_at) 
+VALUES('Andrades Rest', 50.7, 1, 1, 'Rua Alagoas', 'Bar', '664', 'Centro', 1, 1, utc_timestamp, utc_timestamp);
 
-INSERT INTO restaurant(name, fee, active, opened, address_address, address_number, address_district, city_id, created_at, updated_at) 
-VALUES('Outback', 123.7, 1, 0, 'Alameda Terracota', '545 - 1079', 'Cerâmica', 1, utc_timestamp, utc_timestamp);
+INSERT INTO restaurant(name, fee, active, opened, address_address, address_number, address_district, city_id, cookery_id, created_at, updated_at) 
+VALUES('Outback', 123.7, 1, 0, 'Alameda Terracota', '545 - 1079', 'Cerâmica',1 , 3, utc_timestamp, utc_timestamp);
 
 INSERT INTO user(name, email, password) VALUES('Jonh Doe', 'johndoe@email.com', '123456');
 INSERT INTO user(name, email, password) VALUES('Jonh Doe 2 ', 'johndoe2@email.com', '654321');
