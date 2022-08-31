@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nasa.nafood.domain.exception.EntityBadRequestException;
 import com.nasa.nafood.domain.model.Restaurant;
 import com.nasa.nafood.domain.service.restaurant.CreateRestaurantService;
 
@@ -20,12 +19,9 @@ public class CreateRestaurantController {
 	
 	@PostMapping
 	public ResponseEntity<?> store(@RequestBody Restaurant restaurant) {
-		try {
-			restaurant =  createRestaurantService.execute(restaurant);
-			
-			return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);
-		} catch (EntityBadRequestException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		restaurant =  createRestaurantService.execute(restaurant);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);
+	
 	}
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nasa.nafood.domain.exception.EntityBadRequestException;
+import com.nasa.nafood.domain.exception.EntityNotFoundException;
 import com.nasa.nafood.domain.model.Cookery;
 import com.nasa.nafood.domain.model.Restaurant;
 import com.nasa.nafood.domain.repository.CookeryRepository;
@@ -22,11 +23,17 @@ public class CreateRestaurantService {
 	
 	
 	public Restaurant execute(Restaurant restaurant) {
+		
+		if(restaurant.getCookery() == null || restaurant.getCookery().getId() == null) {
+			throw new EntityBadRequestException("The cookery cannot be null");
+		}
+		
 		Long cookeryId = restaurant.getCookery().getId();
-		 Optional<Cookery> cookery = cookeryRepository.findById(cookeryId);
+	
+		Optional<Cookery> cookery = cookeryRepository.findById(cookeryId);
 		
 		if(cookery.isEmpty()) {
-			throw new EntityBadRequestException(String.format("The cookery with %d is not found.", cookeryId));
+			throw new EntityNotFoundException(String.format("The cookery with %d is not found.", cookeryId));
 		};
 		
 		restaurant.setCookery(cookery.get());

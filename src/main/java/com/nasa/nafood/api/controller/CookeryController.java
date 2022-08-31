@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nasa.nafood.api.model.CookeryXmlWrapper;
-import com.nasa.nafood.domain.exception.EntityInUseException;
 import com.nasa.nafood.domain.exception.EntityNotFoundException;
 import com.nasa.nafood.domain.model.Cookery;
 import com.nasa.nafood.domain.service.cookery.CreateCookeryService;
@@ -67,14 +66,9 @@ public class CookeryController {
 	
 	@GetMapping("/{cookeryId}")
 	public ResponseEntity<Cookery> show(@PathVariable Long cookeryId) {
-		try {
-			Cookery cookery = showCookeryService.execute(cookeryId);
-			
-			return ResponseEntity.ok(cookery);
-
-		} catch (EntityNotFoundException e) {
-			return ResponseEntity.notFound().build();
-		}
+		Cookery cookery = showCookeryService.execute(cookeryId);
+		
+		return ResponseEntity.ok(cookery);
 	}
 	
 	@GetMapping("/name")
@@ -106,23 +100,29 @@ public class CookeryController {
 		}
 	}
 	
+//	@DeleteMapping("/{cookeryId}")
+//	public ResponseEntity<Cookery> delete(@PathVariable long cookeryId) {
+//		try {
+//			deleteCookeryService.execute(cookeryId);
+//			
+//			return ResponseEntity.noContent().build();
+//		} catch (Exception e) {
+//			if(e instanceof EntityNotFoundException) {
+//				return ResponseEntity.notFound().build();
+//			}
+//			
+//			if(e instanceof EntityInUseException) {
+//				return ResponseEntity.status(HttpStatus.CONFLICT).build();
+//			}
+//			
+//			return ResponseEntity.internalServerError().build();
+//		}
+//	}
+	
 	@DeleteMapping("/{cookeryId}")
-	public ResponseEntity<Cookery> delete(@PathVariable long cookeryId) {
-		try {
-			deleteCookeryService.execute(cookeryId);
-			
-			return ResponseEntity.noContent().build();
-		} catch (Exception e) {
-			if(e instanceof EntityNotFoundException) {
-				return ResponseEntity.notFound().build();
-			}
-			
-			if(e instanceof EntityInUseException) {
-				return ResponseEntity.status(HttpStatus.CONFLICT).build();
-			}
-			
-			return ResponseEntity.internalServerError().build();
-		}
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable long cookeryId) {
+		deleteCookeryService.execute(cookeryId);
 	}
 	
 }
