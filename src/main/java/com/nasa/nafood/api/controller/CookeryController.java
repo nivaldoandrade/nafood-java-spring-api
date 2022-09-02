@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.nasa.nafood.api.model.CookeryXmlWrapper;
-import com.nasa.nafood.domain.exception.EntityInUseException;
 import com.nasa.nafood.domain.exception.EntityNotFoundException;
 import com.nasa.nafood.domain.model.Cookery;
 import com.nasa.nafood.domain.service.cookery.CreateCookeryService;
@@ -104,21 +102,9 @@ public class CookeryController {
 	
 	@DeleteMapping("/{cookeryId}")
 	public ResponseEntity<Cookery> delete(@PathVariable long cookeryId) {
-		try {
 			deleteCookeryService.execute(cookeryId);
 			
 			return ResponseEntity.noContent().build();
-		} catch (Exception e) {
-			if(e instanceof EntityNotFoundException) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-			}
-			
-			if(e instanceof EntityInUseException) {
-				throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-			}
-			
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-		}
 	}
 	
 //	@DeleteMapping("/{cookeryId}")
