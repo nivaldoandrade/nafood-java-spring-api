@@ -1,7 +1,5 @@
 package com.nasa.nafood.domain.service.city;
 
-import java.util.Optional;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,21 +21,19 @@ public class UpdateCityService {
 	private StateRepository stateRepository;
 	
 	public City execute(Long cityId, City city) {
-		Optional<City> cityOptional = cityRepository.findById(cityId);
+		City cityUpdate = cityRepository.findById(cityId).orElseThrow(() -> 
+			new EntityNotFoundException(String.format("The city with %d is not found", cityId))
+		);
 		
-		if(cityOptional.isEmpty()) {
-			throw new EntityNotFoundException(String.format("The city with %d is not found", cityId));
-		};
+		if(city.getState() == null || city.getState().getId() == null) {
+			throw new EntityBadRequestException("The state is required and not null");
+		}
 		
 		Long stateId = city.getState().getId();
-		Optional<State> stateOptinal = stateRepository.findById(stateId);
 		
-		if(stateOptinal.isEmpty()) {
-			throw new EntityBadRequestException(String.format("The state with %d is not found", stateId));
-		};
-		
-		State state = stateOptinal.get();
-		City cityUpdate = cityOptional.get();
+		State state = stateRepository.findById(stateId).orElseThrow(() -> 
+			new EntityBadRequestException(String.format("The state with %d is not found", stateId))
+		);
 		
 		cityUpdate.setState(state);
 		

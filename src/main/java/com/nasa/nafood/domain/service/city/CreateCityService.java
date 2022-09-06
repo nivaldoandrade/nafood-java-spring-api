@@ -1,11 +1,10 @@
 package com.nasa.nafood.domain.service.city;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nasa.nafood.domain.exception.EntityBadRequestException;
+import com.nasa.nafood.domain.exception.EntityNotFoundException;
 import com.nasa.nafood.domain.model.City;
 import com.nasa.nafood.domain.model.State;
 import com.nasa.nafood.domain.repository.CityRepository;
@@ -21,15 +20,16 @@ public class CreateCityService {
 	private StateRepository stateRepository;
 	
 	public City execute(City city) {
-		Long stateId = city.getState().getId();
 		
-		Optional<State> stateOptinal = stateRepository.findById(stateId);
-	
-		if(stateOptinal.isEmpty()) {
-			throw new EntityBadRequestException(String.format("The state with %d is not found", stateId));
+		if(city.getState() == null || city.getState().getId() == null) {
+			throw new EntityBadRequestException("The state cannot be null");
 		}
 		
-		State state = stateOptinal.get();
+		Long stateId = city.getState().getId();
+		
+		State state = stateRepository.findById(stateId).orElseThrow(() -> 
+			new EntityNotFoundException(String.format("The state with %d is not found", stateId))
+		);
 		
 		city.setState(state);
 		

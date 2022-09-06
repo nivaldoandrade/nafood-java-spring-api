@@ -1,7 +1,5 @@
 package com.nasa.nafood.domain.service.city;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +14,8 @@ public class ShowCityService {
 	private CityRepository cityRepository;
 	
 	public City execute(Long id) {
-		Optional<City> city = cityRepository.findById(id);
-		
-		
-		if(city.isEmpty()) {
-			throw new EntityNotFoundException(String.format("The city with %d is not found", id));
-		};
-		
-		return city.get();
+		return cityRepository.findById(id).orElseThrow(() -> 
+			new EntityNotFoundException(String.format("The city with %d is not found", id))
+		);	
 	}
 }
