@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nasa.nafood.domain.exception.EntityNotFoundException;
 import com.nasa.nafood.domain.model.Cookery;
 import com.nasa.nafood.domain.repository.CookeryRepository;
 
@@ -16,13 +15,6 @@ public class FindByNameCookeryService {
 	private CookeryRepository cookeryRepository;
 	
 	public List<Cookery> execute(String name) {
-		List<Cookery> cookeries =  cookeryRepository.findAllByNameContaining(name);
-		
-		
-		if(cookeries.isEmpty()) {
-			throw new EntityNotFoundException(String.format("The cookery with %s is not found", name));
-		}
-		
-		return cookeries;
+		return cookeryRepository.findAllByNameContaining(name);
 	}
 } 

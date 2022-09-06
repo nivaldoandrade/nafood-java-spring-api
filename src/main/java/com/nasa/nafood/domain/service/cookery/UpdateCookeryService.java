@@ -1,11 +1,10 @@
 package com.nasa.nafood.domain.service.cookery;
 
-import java.util.Optional;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nasa.nafood.domain.exception.EntityBadRequestException;
 import com.nasa.nafood.domain.exception.EntityNotFoundException;
 import com.nasa.nafood.domain.model.Cookery;
 import com.nasa.nafood.domain.repository.CookeryRepository;
@@ -17,14 +16,17 @@ public class UpdateCookeryService {
 	private CookeryRepository cookeryRepository;
 	
 	public Cookery execute(Long id, Cookery cookery) {
-		Optional<Cookery> cookeryUpdate = cookeryRepository.findById(id);
+		if(cookery.getName() == null) {
+			throw new EntityBadRequestException("The name field is required and not null");
+		} 
 		
-		if(cookeryUpdate.isEmpty()) {
-			throw new EntityNotFoundException(String.format("The cookery with %d is not found", id));
-		};
 		
-		BeanUtils.copyProperties(cookery, cookeryUpdate.get(), "id");
+		Cookery cookeryUpdated = cookeryRepository.findById(id).orElseThrow(() -> 
+			new EntityNotFoundException(String.format("The cookery with %d is not found", id))
+		);
 		
-		return cookeryRepository.save(cookeryUpdate.get());
+		BeanUtils.copyProperties(cookery, cookeryUpdated, "id");
+		
+		return cookeryRepository.save(cookeryUpdated);
 	}
 }

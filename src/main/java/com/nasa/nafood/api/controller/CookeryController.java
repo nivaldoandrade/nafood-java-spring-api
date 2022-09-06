@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nasa.nafood.api.model.CookeryXmlWrapper;
-import com.nasa.nafood.domain.exception.EntityNotFoundException;
 import com.nasa.nafood.domain.model.Cookery;
 import com.nasa.nafood.domain.service.cookery.CreateCookeryService;
 import com.nasa.nafood.domain.service.cookery.DeleteCookeryService;
@@ -65,21 +63,15 @@ public class CookeryController {
 	}
 	
 	@GetMapping("/{cookeryId}")
-	public ResponseEntity<Cookery> show(@PathVariable Long cookeryId) {
-		Cookery cookery = showCookeryService.execute(cookeryId);
-		
-		return ResponseEntity.ok(cookery);
+	public Cookery show(@PathVariable Long cookeryId) {
+		return showCookeryService.execute(cookeryId);
+	
 	}
 	
 	@GetMapping("/name")
-	public ResponseEntity<List<Cookery>> findByName(@RequestParam("name") String name) {
-		try {
-			List<Cookery> cookeries = findByNameCookeryService.execute(name);
-			
-			return ResponseEntity.ok(cookeries);
-		} catch (EntityNotFoundException e) {
-			return ResponseEntity.notFound().build();
-		}
+	public List<Cookery> findByName(@RequestParam("name") String name) {
+		return findByNameCookeryService.execute(name);
+
 	}
 	
 	@PostMapping
@@ -89,22 +81,16 @@ public class CookeryController {
 	}
 	
 	@PutMapping("/{cookeryId}") 
-	public ResponseEntity<Cookery> update(@PathVariable long cookeryId, @RequestBody Cookery cookery) {
-		try {
-			Cookery cookeryUpdate = updateCookeryService.execute(cookeryId, cookery);
-			
-			return ResponseEntity.ok(cookeryUpdate);
+	public Cookery update(@PathVariable long cookeryId, @RequestBody Cookery cookery) {
+		return updateCookeryService.execute(cookeryId, cookery);
 		
-		} catch (EntityNotFoundException e) {
-			return ResponseEntity.notFound().build();
-		}
 	}
 	
 	@DeleteMapping("/{cookeryId}")
-	public ResponseEntity<Cookery> delete(@PathVariable long cookeryId) {
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable long cookeryId) {
 			deleteCookeryService.execute(cookeryId);
 			
-			return ResponseEntity.noContent().build();
 	}
 	
 //	@DeleteMapping("/{cookeryId}")
