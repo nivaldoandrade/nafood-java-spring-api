@@ -15,15 +15,15 @@ public class DeleteRestaurantService {
 	private RestaurantRepository restaurantRepository;
 	
 	@Autowired
-	private ShowRestaurantService showRestaurantService;
+	private FindByIdRestaurantService findByIdRestaurantService;
 	
-	public void execute(long id) {
-		Restaurant restaurant = showRestaurantService.execute(id);
+	public void execute(long restaurantId) {
+		Restaurant restaurant = findByIdRestaurantService.execute(restaurantId);
 		
 		try {
 			restaurantRepository.delete(restaurant);
 		} catch (DataIntegrityViolationException e) {
-			throw new EntityInUseException(String.format("the restaurant with id %d is being used", id));
+			throw new EntityInUseException(String.format("the restaurant with id %d is being used", restaurantId));
 		}
 
 	} 

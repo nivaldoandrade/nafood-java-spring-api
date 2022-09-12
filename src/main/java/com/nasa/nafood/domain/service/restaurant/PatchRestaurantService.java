@@ -22,12 +22,13 @@ public class PatchRestaurantService {
 	private RestaurantRepository restaurantRepository;
 	
 	@Autowired
+	private FindByIdRestaurantService findByIdRestaurantService;
+	
+	@Autowired
 	private CookeryRepository cookeryRepository;
 	
 	public Restaurant execute(Long restaurantId,  Map<String, Object> fields) {
-		Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(() -> 
-			new EntityNotFoundException(String.format("The restaraunt with %d is not found.", restaurantId))
-		);
+		Restaurant restaurant = findByIdRestaurantService.execute(restaurantId);
 	
 		ObjectMapper objectMapper = new ObjectMapper();
 		Restaurant restaurantFields = objectMapper.convertValue(fields, Restaurant.class);

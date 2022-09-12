@@ -20,10 +20,11 @@ public class UpdateRestaurantService {
 	@Autowired
 	private CookeryRepository cookeryRepository;
 	
-	public Restaurant execute(Long id, Restaurant restaurant) {
-		Restaurant restaurantUpdate = restaurantRepository.findById(id).orElseThrow(() ->
-			new EntityNotFoundException(String.format("The restaurant with %d is not found", id))
-		);
+	@Autowired
+	private FindByIdRestaurantService findByIdRestaurantService;
+	
+	public Restaurant execute(Long restaurantId, Restaurant restaurant) {
+		Restaurant restaurantUpdate = findByIdRestaurantService.execute(restaurantId);
 	
 		BeanUtils.copyProperties(restaurant, restaurantUpdate, "id", "payments", "address", "createdAt");
 		
