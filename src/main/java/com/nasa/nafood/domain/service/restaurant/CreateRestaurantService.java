@@ -4,11 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nasa.nafood.domain.exception.EntityBadRequestException;
-import com.nasa.nafood.domain.exception.EntityNotFoundException;
 import com.nasa.nafood.domain.model.Cookery;
 import com.nasa.nafood.domain.model.Restaurant;
-import com.nasa.nafood.domain.repository.CookeryRepository;
 import com.nasa.nafood.domain.repository.RestaurantRepository;
+import com.nasa.nafood.domain.service.cookery.FindByIdCookeryService;
 
 @Service
 public class CreateRestaurantService {
@@ -17,7 +16,7 @@ public class CreateRestaurantService {
 	private RestaurantRepository restaurantRepository;
 	
 	@Autowired
-	private CookeryRepository cookeryRepository;
+	private FindByIdCookeryService findByIdCookeryService;
 	
 	
 	public Restaurant execute(Restaurant restaurant) {
@@ -28,8 +27,7 @@ public class CreateRestaurantService {
 		
 		Long cookeryId = restaurant.getCookery().getId();
 	
-		Cookery cookery = cookeryRepository.findById(cookeryId).orElseThrow(
-				() -> new EntityNotFoundException(String.format("The cookery with %d is not found.", cookeryId)));
+		Cookery cookery = findByIdCookeryService.execute(cookeryId);
 		
 		restaurant.setCookery(cookery);
 		

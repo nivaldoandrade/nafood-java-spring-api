@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nasa.nafood.domain.exception.EntityBadRequestException;
-import com.nasa.nafood.domain.exception.EntityNotFoundException;
 import com.nasa.nafood.domain.model.Cookery;
 import com.nasa.nafood.domain.repository.CookeryRepository;
 
@@ -15,15 +14,15 @@ public class UpdateCookeryService {
 	@Autowired
 	private CookeryRepository cookeryRepository;
 	
-	public Cookery execute(Long id, Cookery cookery) {
+	@Autowired
+	private FindByIdCookeryService findByIdCookeryService;
+	
+	public Cookery execute(Long cookeryId, Cookery cookery) {
 		if(cookery.getName() == null) {
 			throw new EntityBadRequestException("The name field is required and not null");
 		} 
 		
-		
-		Cookery cookeryUpdated = cookeryRepository.findById(id).orElseThrow(() -> 
-			new EntityNotFoundException(String.format("The cookery with %d is not found", id))
-		);
+		Cookery cookeryUpdated = findByIdCookeryService.execute(cookeryId);
 		
 		BeanUtils.copyProperties(cookery, cookeryUpdated, "id");
 		

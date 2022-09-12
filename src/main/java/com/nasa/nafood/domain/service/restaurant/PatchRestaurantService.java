@@ -9,11 +9,10 @@ import org.springframework.util.ReflectionUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nasa.nafood.domain.exception.EntityBadRequestException;
-import com.nasa.nafood.domain.exception.EntityNotFoundException;
 import com.nasa.nafood.domain.model.Cookery;
 import com.nasa.nafood.domain.model.Restaurant;
-import com.nasa.nafood.domain.repository.CookeryRepository;
 import com.nasa.nafood.domain.repository.RestaurantRepository;
+import com.nasa.nafood.domain.service.cookery.FindByIdCookeryService;
 
 @Service
 public class PatchRestaurantService {
@@ -25,7 +24,7 @@ public class PatchRestaurantService {
 	private FindByIdRestaurantService findByIdRestaurantService;
 	
 	@Autowired
-	private CookeryRepository cookeryRepository;
+	private FindByIdCookeryService findByIdCookeryService;
 	
 	public Restaurant execute(Long restaurantId,  Map<String, Object> fields) {
 		Restaurant restaurant = findByIdRestaurantService.execute(restaurantId);
@@ -49,9 +48,7 @@ public class PatchRestaurantService {
 		
 		Long cookeryId = restaurant.getCookery().getId();
 		
-		Cookery cookeryExists = cookeryRepository.findById(cookeryId).orElseThrow(() ->
-			new EntityNotFoundException(String.format("The cookery with %d is not found", cookeryId))
-		);
+		Cookery cookeryExists = findByIdCookeryService.execute(cookeryId);
 		
 		restaurant.setCookery(cookeryExists);
 	
