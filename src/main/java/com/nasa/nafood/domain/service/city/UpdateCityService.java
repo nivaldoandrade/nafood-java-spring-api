@@ -5,11 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nasa.nafood.domain.exception.EntityBadRequestException;
-import com.nasa.nafood.domain.exception.EntityNotFoundException;
 import com.nasa.nafood.domain.model.City;
 import com.nasa.nafood.domain.model.State;
 import com.nasa.nafood.domain.repository.CityRepository;
-import com.nasa.nafood.domain.repository.StateRepository;
+import com.nasa.nafood.domain.service.state.FindByIdStateService;
 
 @Service
 public class UpdateCityService {
@@ -18,12 +17,13 @@ public class UpdateCityService {
 	private CityRepository cityRepository;
 	
 	@Autowired
-	private StateRepository stateRepository;
+	private FindByIdCityService findByIdCityService;
+	
+	@Autowired
+	private FindByIdStateService findByIdStateService;
 	
 	public City execute(Long cityId, City city) {
-		City cityUpdate = cityRepository.findById(cityId).orElseThrow(() -> 
-			new EntityNotFoundException(String.format("The city with %d is not found", cityId))
-		);
+		City cityUpdate = findByIdCityService.execute(cityId);
 		
 		if(city.getState() == null || city.getState().getId() == null) {
 			throw new EntityBadRequestException("The state is required and not null");
@@ -31,9 +31,7 @@ public class UpdateCityService {
 		
 		Long stateId = city.getState().getId();
 		
-		State state = stateRepository.findById(stateId).orElseThrow(() -> 
-			new EntityBadRequestException(String.format("The state with %d is not found", stateId))
-		);
+		State state = findByIdStateService.execute(stateId);
 		
 		cityUpdate.setState(state);
 		
