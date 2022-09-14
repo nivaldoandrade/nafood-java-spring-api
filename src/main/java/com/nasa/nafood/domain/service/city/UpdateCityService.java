@@ -1,6 +1,5 @@
 package com.nasa.nafood.domain.service.city;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +14,12 @@ public class UpdateCityService {
 
 	@Autowired
 	private CityRepository cityRepository;
-	
-	@Autowired
-	private FindByIdCityService findByIdCityService;
+
 	
 	@Autowired
 	private FindByIdStateService findByIdStateService;
 	
 	public City execute(Long cityId, City city) {
-		City cityUpdate = findByIdCityService.execute(cityId);
 		
 		if(city.getState() == null || city.getState().getId() == null) {
 			throw new EntityBadRequestException("The state is required and not null");
@@ -33,11 +29,9 @@ public class UpdateCityService {
 		
 		State state = findByIdStateService.execute(stateId);
 		
-		cityUpdate.setState(state);
+		city.setState(state);
 		
-		BeanUtils.copyProperties(city, cityUpdate, "id", "state");
-		
-		return cityRepository.save(cityUpdate);	
+		return cityRepository.save(city);	
 	}
 	
 }
