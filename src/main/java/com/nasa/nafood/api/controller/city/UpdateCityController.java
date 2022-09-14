@@ -31,7 +31,7 @@ public class UpdateCityController {
 		BeanUtils.copyProperties(city, cityUpdate, "id");
 		
 		try {
-			return updateCityService.execute(cityId, city);
+			return updateCityService.execute(cityId, cityUpdate);
 		} catch (EntityNotFoundException e) {
 			throw new EntityBadRequestException(e.getMessage());
 		}
