@@ -1,13 +1,8 @@
 package com.nasa.nafood.domain.service.restaurant;
 
-import java.lang.reflect.Field;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ReflectionUtils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nasa.nafood.domain.exception.EntityBadRequestException;
 import com.nasa.nafood.domain.model.Cookery;
 import com.nasa.nafood.domain.model.Restaurant;
@@ -21,25 +16,10 @@ public class PatchRestaurantService {
 	private RestaurantRepository restaurantRepository;
 	
 	@Autowired
-	private FindByIdRestaurantService findByIdRestaurantService;
-	
-	@Autowired
 	private FindByIdCookeryService findByIdCookeryService;
 	
-	public Restaurant execute(Long restaurantId,  Map<String, Object> fields) {
-		Restaurant restaurant = findByIdRestaurantService.execute(restaurantId);
-	
-		ObjectMapper objectMapper = new ObjectMapper();
-		Restaurant restaurantFields = objectMapper.convertValue(fields, Restaurant.class);
-		
-		fields.forEach((key, value) -> {
-			Field field = ReflectionUtils.findField(Restaurant.class, (String) key);
-			field.setAccessible(true);
-			Object newValue = ReflectionUtils.getField(field, restaurantFields);
-			
-			ReflectionUtils.setField(field, restaurant, newValue);
-		});
-			
+	public Restaurant execute(Long restaurantId,  Restaurant restaurant) {
+
 		Cookery cookery = restaurant.getCookery();
 		
 		if(cookery == null || cookery.getId() == null) {
