@@ -33,7 +33,7 @@ public class CreateRestaurantController {
 		try {
 			return createRestaurantService.execute(restaurant);
 		} catch (EntityNotFoundException e) {
-			throw new EntityBadRequestException(e.getMessage());
+			throw new EntityBadRequestException(e.getMessage(), e);
 		}	
 	}
 }

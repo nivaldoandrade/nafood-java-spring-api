@@ -1,5 +1,6 @@
 package com.nasa.nafood.domain.service.restaurant;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,21 +18,28 @@ public class UpdateRestaurantService {
 	
 	@Autowired
 	private FindByIdCookeryService findByIdCookeryService;
+	
+	@Autowired
+	private FindByIdRestaurantService findByIdRestaurantService;
 
 	public Restaurant execute(Long restaurantId, Restaurant restaurant) {
 		
-		Cookery cookery = restaurant.getCookery();
+		Restaurant restaurantUpdate = findByIdRestaurantService.execute(restaurantId);
+		
+		BeanUtils.copyProperties(restaurant, restaurantUpdate, "id", "payments", "address", "createdAt");
+		
+		Cookery cookery = restaurantUpdate.getCookery();
 		
 		if(cookery == null || cookery.getId() == null) {
 			throw new EntityBadRequestException("The cookery is required and not null");
 		};
 		
-		Long cookeryId = restaurant.getCookery().getId();
+		Long cookeryId = restaurantUpdate.getCookery().getId();
 		
 		Cookery cookeryExists = findByIdCookeryService.execute(cookeryId);
 		
-		restaurant.setCookery(cookeryExists);
+		restaurantUpdate.setCookery(cookeryExists);
 	
-		return restaurantRepository.save(restaurant);
+		return restaurantRepository.save(restaurantUpdate);
 	}
 }
