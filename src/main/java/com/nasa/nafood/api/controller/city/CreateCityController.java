@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nasa.nafood.domain.exception.EntityBadRequestException;
-import com.nasa.nafood.domain.exception.EntityNotFoundException;
+import com.nasa.nafood.domain.exception.StateNotFoundException;
 import com.nasa.nafood.domain.model.City;
 import com.nasa.nafood.domain.service.city.CreateCityService;
 
@@ -25,7 +25,7 @@ public class CreateCityController {
 	public City create(@RequestBody City city) {
 		try {
 			return createCityService.execute(city);	
-		} catch (EntityNotFoundException e) {
+		} catch (StateNotFoundException e) {
 			throw new EntityBadRequestException(e.getMessage());
 		}
 	}

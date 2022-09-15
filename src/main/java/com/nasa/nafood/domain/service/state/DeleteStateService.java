@@ -6,7 +6,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.nasa.nafood.domain.exception.EntityInUseException;
-import com.nasa.nafood.domain.exception.EntityNotFoundException;
+import com.nasa.nafood.domain.exception.StateNotFoundException;
 import com.nasa.nafood.domain.repository.StateRepository;
 
 @Service
@@ -20,7 +20,7 @@ public class DeleteStateService {
 			stateRepository.deleteById(stateId);
 		} catch (Exception e) {
 			if(e instanceof EmptyResultDataAccessException) {
-				throw new EntityNotFoundException(String.format("The state with %d is not found", stateId));
+				throw new StateNotFoundException(stateId);
 			}
 			
 			if(e instanceof DataIntegrityViolationException) {
