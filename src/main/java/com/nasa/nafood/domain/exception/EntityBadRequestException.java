@@ -12,4 +12,7 @@ public class EntityBadRequestException extends RuntimeException {
 		super(message);
 	}
 
+	public EntityBadRequestException(String message, Throwable cause) {
+		super(message, cause);
+	}
 }

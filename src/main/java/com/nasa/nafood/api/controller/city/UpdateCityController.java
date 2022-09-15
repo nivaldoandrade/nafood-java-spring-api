@@ -25,7 +25,7 @@ public class UpdateCityController {
 			return updateCityService.execute(cityId, city);
 			
 		} catch (StateNotFoundException e) {
-			throw new EntityBadRequestException(e.getMessage());
+			throw new EntityBadRequestException(e.getMessage(), e);
 		}
 			
 	}
