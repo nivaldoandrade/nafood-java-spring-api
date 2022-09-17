@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.nasa.nafood.domain.model.Cookery;
 
 import lombok.Data;
@@ -15,7 +14,7 @@ import lombok.NonNull;
 public class CookeryXmlWrapper {
 
 	@JsonProperty("cookery")
-	@JacksonXmlElementWrapper(useWrapping = false)
+//	@JacksonXmlElementWrapper(useWrapping = false)
 	@NonNull
 	private List<Cookery> cookeries;
 }
