@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.nasa.nafood.domain.exception.EntityBadRequestException;
+import com.nasa.nafood.domain.exception.EntityInUseException;
 import com.nasa.nafood.domain.exception.EntityNotFoundException;
 
 @ControllerAdvice
@@ -35,6 +36,16 @@ public class ApiExceptionHandler {
 				.body(error);
 	}
 	
+	@ExceptionHandler(EntityInUseException.class)
+	public ResponseEntity<?> handleEntityInUseException(EntityInUseException e) {
+		ApiError error = ApiError.builder()
+				.timestamp(LocalDateTime.now())
+				.message(e.getMessage())
+				.build();
+		
+		return ResponseEntity.status(HttpStatus.CONFLICT)
+				.body(error);
+	}
 	
 	@ExceptionHandler(HttpMediaTypeNotSupportedException.class) 
 	public ResponseEntity<?> handleHttpMediaTypeNotSupportedException() {
