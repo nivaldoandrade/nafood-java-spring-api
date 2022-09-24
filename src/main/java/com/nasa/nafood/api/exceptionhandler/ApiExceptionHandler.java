@@ -4,16 +4,16 @@ import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.nasa.nafood.domain.exception.EntityBadRequestException;
 import com.nasa.nafood.domain.exception.EntityInUseException;
 import com.nasa.nafood.domain.exception.EntityNotFoundException;
 
 @ControllerAdvice
-public class ApiExceptionHandler {
+public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity<?> handleEntityNotFoundExpection(EntityNotFoundException e) {
@@ -44,16 +44,6 @@ public class ApiExceptionHandler {
 				.build();
 		
 		return ResponseEntity.status(HttpStatus.CONFLICT)
-				.body(error);
-	}
-	
-	@ExceptionHandler(HttpMediaTypeNotSupportedException.class) 
-	public ResponseEntity<?> handleHttpMediaTypeNotSupportedException() {
-		ApiError error = ApiError.builder()
-				.timestamp(LocalDateTime.now())
-				.message("Unsupported Media Type").build();
-		
-		return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
 				.body(error);
 	}
 }
